@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Translation App — Welcome</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans:wght@400;600&family=Noto+Sans+Tamil&family=Noto+Sans+Devanagari&family=Noto+Sans+Telugu&family=Noto+Sans+Malayalam&family=Noto+Sans+Kannada&family=Noto+Sans+Bengali&family=Noto+Sans+Gujarati&family=Noto+Sans+Gurmukhi&family=Noto+Nastaliq+Urdu&family=Noto+Sans+Arabic&family=Noto+Sans+SC&family=Noto+Sans+JP&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5F3FB;
+    --surface:#FFFFFF;
+    --ink:#2A2440;
+    --ink-soft:#7A72A0;
+    --violet:#5C4B9B;
+    --orange:#FF7A45;
+    --rose:#E0457B;
+    --teal:#1FA89A;
+    --line:#E3DEF4;
+    --radius-lg:22px;
+    --radius-md:14px;
+    --radius-sm:10px;
+    --container:1120px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Plus Jakarta Sans', sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .container{max-width:var(--container); margin:0 auto; padding:0 24px;}
+  a{color:inherit;}
+  button{font-family:inherit; cursor:pointer;}
+  :focus-visible{outline:3px solid var(--violet); outline-offset:2px;}
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px;
+    background:rgba(245,243,251,0.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .logo{display:flex; align-items:center; gap:12px; font-family:'Fraunces', serif; font-weight:600; font-size:1.05rem;}
+  .logo-marks{display:flex; align-items:center;}
+  .logo-bubble{
+    width:26px; height:26px; border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:.8rem; color:#fff;
+  }
+  .logo-bubble--a{background:var(--orange); transform:rotate(-8deg); margin-right:-8px; z-index:2; box-shadow:0 2px 6px rgba(255,122,69,.35);}
+  .logo-bubble--cjk{background:var(--violet); transform:rotate(8deg); box-shadow:0 2px 6px rgba(92,75,155,.35);}
+  .nav-links{display:flex; gap:28px; font-size:.92rem; font-weight:500;}
+  .nav-links a{text-decoration:none; color:var(--ink-soft); transition:color .2s;}
+  .nav-links a:hover{color:var(--violet);}
+  .nav-cta{
+    display:none;
+  }
+  @media (min-width:640px){
+    .nav-cta{
+      display:inline-flex; align-items:center;
+      background:var(--violet); color:#fff; text-decoration:none;
+      padding:9px 18px; border-radius:999px; font-size:.88rem; font-weight:600;
+    }
+  }
+  @media (max-width:640px){
+    .nav-links{gap:18px; font-size:.85rem;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:72px 24px 48px;
+    text-align:center;
+  }
+  .eyebrow{
+    display:inline-block; font-size:.78rem; font-weight:700;
+    letter-spacing:.16em; text-transform:uppercase;
+    color:var(--violet); margin-bottom:30px;
+  }
+  .hero-word-wrap{
+    min-height:clamp(4rem, 17vw, 9.5rem);
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:22px;
+  }
+  .hero-word{
+    font-weight:700;
+    font-size:clamp(3.2rem, 16vw, 9rem);
+    line-height:1;
+    color:var(--violet);
+    transition:opacity .35s ease, transform .35s ease;
+  }
+  .hero h1{
+    font-family:'Fraunces', serif; font-weight:600;
+    font-size:clamp(2rem, 5vw, 3.4rem);
+    margin-bottom:18px; color:var(--ink);
+  }
+  .hero-lead{
+    max-width:620px; margin:0 auto 32px;
+    font-size:1.05rem; color:var(--ink-soft);
+  }
+  .btn-primary{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--violet); color:#fff; border:none; text-decoration:none;
+    padding:14px 30px; border-radius:999px; font-weight:600; font-size:1rem;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(92,75,155,.3);}
+
+  /* ---------- SECTIONS (shared) ---------- */
+  .section{padding:56px 0;}
+  .section-head{max-width:680px; margin-bottom:32px;}
+  .section-head h2{
+    font-family:'Fraunces', serif; font-weight:600;
+    font-size:clamp(1.8rem, 4vw, 2.6rem); margin-bottom:10px;
+  }
+  .section-head p{color:var(--ink-soft); font-size:1.02rem;}
+
+  /* ---------- TRANSLATOR ---------- */
+  .translator-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius-lg);
+    padding:28px;
+    display:grid;
+    grid-template-columns:1fr 56px 1fr;
+    gap:20px;
+    align-items:stretch;
+    box-shadow:0 1px 0 rgba(42,36,64,.02);
+  }
+  .translator-panel{display:flex; flex-direction:column; gap:10px;}
+  .translator-panel label{
+    font-size:.76rem; font-weight:700; text-transform:uppercase;
+    letter-spacing:.1em; color:var(--ink-soft);
+  }
+  .translator-panel select{
+    padding:11px 12px; border-radius:var(--radius-sm); border:1px solid var(--line);
+    background:var(--bg); font-size:.92rem; color:var(--ink);
+    appearance:none;
+  }
+  .translator-panel textarea, .output-text{
+    flex:1; min-height:150px; border-radius:var(--radius-md); border:1px solid var(--line);
+    padding:14px; font-size:1rem; font-family:inherit; color:var(--ink); background:var(--bg);
+    resize:vertical;
+  }
+  .output-text{
+    overflow:auto; white-space:pre-wrap;
+  }
+  .output-text.placeholder{color:var(--ink-soft);}
+  .swap-btn{
+    align-self:center; width:48px; height:48px; border-radius:50%;
+    border:1px solid var(--line); background:var(--bg); font-size:1.2rem; color:var(--violet);
+    transition:background .2s ease, color .2s ease, transform .25s ease;
+  }
+  .swap-btn:hover{background:var(--violet); color:#fff; transform:rotate(180deg);}
+  @media (max-width:760px){
+    .translator-card{grid-template-columns:1fr;}
+    .swap-btn{transform:rotate(90deg); margin:4px auto;}
+    .swap-btn:hover{transform:rotate(270deg);}
+  }
+  .translator-actions{
+    display:flex; flex-wrap:wrap; align-items:center; gap:14px; margin-top:22px;
+  }
+  .quick-phrases{display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:.88rem; color:var(--ink-soft);}
+  .chip{
+    border:1px solid var(--line); background:var(--surface); border-radius:999px;
+    padding:7px 14px; font-size:.85rem; color:var(--ink);
+    transition:border-color .2s, color .2s;
+  }
+  .chip:hover{border-color:var(--violet); color:var(--violet);}
+  .translator-note{margin-top:18px; font-size:.8rem; color:var(--ink-soft);}
+
+  /* ---------- LANGUAGES ---------- */
+  .lang-group{margin-bottom:38px;}
+  .lang-group:last-child{margin-bottom:0;}
+  .lang-group-head{display:flex; align-items:baseline; gap:10px; margin-bottom:16px; flex-wrap:wrap;}
+  .lang-group-dot{width:10px; height:10px; border-radius:50%; flex-shrink:0;}
+  .lang-group-title{font-weight:700; font-size:1.02rem;}
+  .lang-group-note{color:var(--ink-soft); font-size:.85rem;}
+  .lang-grid{
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:12px;
+  }
+  .lang-card{
+    border:1px solid var(--line); border-radius:var(--radius-md); padding:16px;
+    background:var(--surface); border-top:3px solid var(--accent);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .lang-card:hover{transform:translateY(-3px); box-shadow:0 12px 28px rgba(42,36,64,.08);}
+  .lang-card.rtl{direction:rtl; text-align:right;}
+  .lang-native{font-size:1.32rem; font-weight:600; margin-bottom:6px;}
+  .lang-greeting{font-size:.98rem; color:var(--ink-soft); margin-bottom:10px;}
+  .lang-name{font-size:.74rem; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-soft);}
+
+  .languages-note{margin-top:36px; color:var(--ink-soft); font-size:.98rem; max-width:680px;}
+
+  /* ---------- ABOUT ---------- */
+  .about-content{max-width:700px;}
+  .about-content p{margin-bottom:16px; color:var(--ink-soft); font-size:1.02rem;}
+  .about-content p:last-child{margin-bottom:0;}
+
+  /* ---------- FOOTER ---------- */
+  .footer{padding:40px 0 64px; border-top:1px solid var(--line); text-align:center; color:var(--ink-soft); font-size:.9rem;}
+  .footer strong{color:var(--ink); font-family:'Fraunces', serif;}
+  .footer p{margin-top:6px;}
+
+  /* ---------- REVEAL ---------- */
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.visible{opacity:1; transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1; transform:none; transition:none;}
+    .hero-word{transition:none;}
+    .swap-btn{transition:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  /* ---------- SCRIPT FONT CLASSES ---------- */
+  .f-latin{font-family:'Fraunces', serif;}
+  .f-cyrillic{font-family:'Noto Sans', sans-serif;}
+  .f-devanagari{font-family:'Noto Sans Devanagari', sans-serif;}
+  .f-bengali{font-family:'Noto Sans Bengali', sans-serif;}
+  .f-gujarati{font-family:'Noto Sans Gujarati', sans-serif;}
+  .f-gurmukhi{font-family:'Noto Sans Gurmukhi', sans-serif;}
+  .f-tamil{font-family:'Noto Sans Tamil', sans-serif;}
+  .f-telugu{font-family:'Noto Sans Telugu', sans-serif;}
+  .f-kannada{font-family:'Noto Sans Kannada', sans-serif;}
+  .f-malayalam{font-family:'Noto Sans Malayalam', sans-serif;}
+  .f-nastaliq{font-family:'Noto Nastaliq Urdu', serif;}
+  .f-arabic{font-family:'Noto Sans Arabic', sans-serif;}
+  .f-sc{font-family:'Noto Sans SC', sans-serif;}
+  .f-jp{font-family:'Noto Sans JP', sans-serif;}
+  .f-kr{font-family:'Noto Sans KR', sans-serif;}
+  .f-body{font-family:'Plus Jakarta Sans', sans-serif;}
+</style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="logo">
+      <span class="logo-marks">
+        <span class="logo-bubble logo-bubble--a">A</span>
+        <span class="logo-bubble logo-bubble--cjk">文</span>
+      </span>
+      Translation App
+    </div>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#languages">Languages</a>
+      <a href="#about">About</a>
+    </div>
+    <a class="nav-cta" href="#translate">Try it</a>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero" id="home">
+    <span class="eyebrow">21 languages · one conversation</span>
+    <div class="hero-word-wrap">
+      <span class="hero-word f-latin" id="heroWord" lang="en">Hello</span>
+    </div>
+    <h1>Welcome to Our Translation App</h1>
+    <p class="hero-lead">
+      Type a word, a sentence, or a full message, and watch it move into another language in
+      seconds. Whether you're a student, a traveler, or a professional, the interface stays
+      simple so the translation can do the talking.
+    </p>
+    <a class="btn-primary" href="#translate">Try a translation ↓</a>
+  </header>
+
+  <!-- TRANSLATOR -->
+  <section class="section reveal" id="translate">
+    <div class="container">
+      <div class="section-head">
+        <h2>Translate something</h2>
+        <p>Pick a language on each side, type your text, and translate.</p>
+      </div>
+
+      <div class="translator-card">
+        <div class="translator-panel">
+          <label for="fromLang">From</label>
+          <select id="fromLang"></select>
+          <textarea id="inputText" placeholder="Type something to translate…" lang="en" dir="ltr"></textarea>
+        </div>
+
+        <button class="swap-btn" id="swapBtn" type="button" aria-label="Swap languages">⇄</button>
+
+        <div class="translator-panel">
+          <label for="toLang">To</label>
+          <select id="toLang"></select>
+          <div class="output-text placeholder" id="outputText" aria-live="polite" lang="hi" dir="ltr">
+            Your translation will appear here.
+          </div>
+        </div>
+      </div>
+
+      <div class="translator-actions">
+        <button class="btn-primary" id="translateBtn" type="button">Translate</button>
+        <div class="quick-phrases">
+          <span>Try:</span>
+          <button class="chip" data-phrase="Hello, how are you?">Hello, how are you?</button>
+          <button class="chip" data-phrase="Thank you very much">Thank you very much</button>
+          <button class="chip" data-phrase="Where is the nearest train station?">Where's the train station?</button>
+          <button class="chip" data-phrase="How much does this cost?">How much does this cost?</button>
+        </div>
+      </div>
+
+      <p class="translator-note">Live translations powered by Claude.</p>
+    </div>
+  </section>
+
+  <!-- LANGUAGES -->
+  <section class="section reveal" id="languages">
+    <div class="container">
+      <div class="section-head">
+        <h2>Supported Languages</h2>
+        <p>
+          Every language below translates in both directions. The 21 languages span four
+          script families — two of which read right to left.
+        </p>
+      </div>
+      <div id="langGroups"></div>
+      <p class="languages-note">
+        New languages and accuracy improvements ship regularly — if yours isn't listed yet,
+        it's likely on the way.
+      </p>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section reveal" id="about">
+    <div class="container">
+      <div class="section-head">
+        <h2>About the app</h2>
+      </div>
+      <div class="about-content">
+        <p>
+          Translation App is built to do one thing well: turn text from one language into
+          another, quickly and clearly. Type a word, a sentence, or a longer passage, choose
+          where it's going, and the translation appears in moments — no sign-up, no clutter,
+          just the words you need.
+        </p>
+        <p>
+          It's designed for the moments where language gets in the way: comparing notes with
+          classmates, ordering food somewhere the menu isn't in your language, or working with
+          a colleague on the other side of the world. With 21 languages across four script
+          families, and more on the way, understanding is always just one translation away.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <strong>Translation App</strong>
+    <p>Built for every conversation.</p>
+  </footer>
+
+<script>
+  // ---------- DATA ----------
+  const LANGS = [
+    { code:'hi', name:'Hindi',      native:'हिन्दी',     greeting:'नमस्ते',          group:'indic', font:'devanagari' },
+    { code:'mr', name:'Marathi',    native:'मराठी',      greeting:'नमस्कार',          group:'indic', font:'devanagari' },
+    { code:'bn', name:'Bengali',    native:'বাংলা',      greeting:'নমস্কার',          group:'indic', font:'bengali' },
+    { code:'gu', name:'Gujarati',   native:'ગુજરાતી',    greeting:'નમસ્તે',           group:'indic', font:'gujarati' },
+    { code:'pa', name:'Punjabi',    native:'ਪੰਜਾਬੀ',     greeting:'ਸਤ ਸ੍ਰੀ ਅਕਾਲ',     group:'indic', font:'gurmukhi' },
+    { code:'ta', name:'Tamil',      native:'தமிழ்',      greeting:'வணக்கம்',          group:'indic', font:'tamil' },
+    { code:'te', name:'Telugu',     native:'తెలుగు',     greeting:'నమస్కారం',         group:'indic', font:'telugu' },
+    { code:'kn', name:'Kannada',    native:'ಕನ್ನಡ',      greeting:'ನಮಸ್ಕಾರ',          group:'indic', font:'kannada' },
+    { code:'ml', name:'Malayalam',  native:'മലയാളം',     greeting:'നമസ്കാരം',         group:'indic', font:'malayalam' },
+
+    { code:'ur', name:'Urdu',       native:'اردو',       greeting:'السلام علیکم',     group:'rtl', font:'nastaliq', dir:'rtl' },
+    { code:'ar', name:'Arabic',     native:'العربية',    greeting:'مرحبا',            group:'rtl', font:'arabic', dir:'rtl' },
+
+    { code:'en', name:'English',    native:'English',    greeting:'Hello',            group:'latin', font:'latin' },
+    { code:'fr', name:'French',     native:'Français',   greeting:'Bonjour',          group:'latin', font:'latin' },
+    { code:'de', name:'German',     native:'Deutsch',    greeting:'Hallo',            group:'latin', font:'latin' },
+    { code:'es', name:'Spanish',    native:'Español',    greeting:'Hola',             group:'latin', font:'latin' },
+    { code:'it', name:'Italian',    native:'Italiano',   greeting:'Ciao',             group:'latin', font:'latin' },
+    { code:'pt', name:'Portuguese', native:'Português',  greeting:'Olá',              group:'latin', font:'latin' },
+    { code:'ru', name:'Russian',    native:'Русский',    greeting:'Привет',           group:'latin', font:'cyrillic' },
+
+    { code:'zh', name:'Chinese',    native:'中文',        greeting:'你好',             group:'cjk', font:'sc' },
+    { code:'ja', name:'Japanese',   native:'日本語',      greeting:'こんにちは',        group:'cjk', font:'jp' },
+    { code:'ko', name:'Korean',     native:'한국어',      greeting:'안녕하세요',        group:'cjk', font:'kr' },
+  ];
+
+  const GROUP_META = {
+    indic: { title:'Brahmic scripts', note:'Left to right · 9 languages', color:'var(--rose)' },
+    rtl:   { title:'Perso-Arabic scripts', note:'Right to left · 2 languages', color:'var(--orange)' },
+    latin: { title:'Latin & Cyrillic', note:'Left to right · 7 languages', color:'var(--violet)' },
+    cjk:   { title:'East Asian scripts', note:'Left to right · 3 languages', color:'var(--teal)' },
+  };
+  const GROUP_ORDER = ['indic','rtl','latin','cjk'];
+
+  const FONT_CLASS = {
+    latin:'f-latin', cyrillic:'f-cyrillic', devanagari:'f-devanagari', bengali:'f-bengali',
+    gujarati:'f-gujarati', gurmukhi:'f-gurmukhi', tamil:'f-tamil', telugu:'f-telugu',
+    kannada:'f-kannada', malayalam:'f-malayalam', nastaliq:'f-nastaliq', arabic:'f-arabic',
+    sc:'f-sc', jp:'f-jp', kr:'f-kr'
+  };
+
+  // ---------- RENDER LANGUAGE GROUPS ----------
+  const langGroupsEl = document.getElementById('langGroups');
+  GROUP_ORDER.forEach(groupKey => {
+    const meta = GROUP_META[groupKey];
+    const items = LANGS.filter(l => l.group === groupKey);
+
+    const groupEl = document.createElement('div');
+    groupEl.className = 'lang-group';
+
+    const head = document.createElement('div');
+    head.className = 'lang-group-head';
+    head.innerHTML = `
+      <span class="lang-group-dot" style="background:${meta.color}"></span>
+      <span class="lang-group-title">${meta.title}</span>
+      <span class="lang-group-note">${meta.note}</span>
+    `;
+    groupEl.appendChild(head);
+
+    const grid = document.createElement('div');
+    grid.className = 'lang-grid';
+
+    items.forEach(l => {
+      const card = document.createElement('div');
+      card.className = 'lang-card' + (l.dir === 'rtl' ? ' rtl' : '');
+      card.style.setProperty('--accent', meta.color);
+
+      const fontClass = FONT_CLASS[l.font];
+      const greetingClass = (l.group === 'latin') ? 'f-body' : fontClass;
+
+      card.innerHTML = `
+        <div class="lang-native ${fontClass}" lang="${l.code}">${l.native}</div>
+        <div class="lang-greeting ${greetingClass}" lang="${l.code}">${l.greeting}</div>
+        <div class="lang-name">${l.name}</div>
+      `;
+      grid.appendChild(card);
+    });
+
+    groupEl.appendChild(grid);
+    langGroupsEl.appendChild(groupEl);
+  });
+
+  // ---------- TRANSLATOR ----------
+  const fromSel = document.getElementById('fromLang');
+  const toSel = document.getElementById('toLang');
+  const inputEl = document.getElementById('inputText');
+  const outputEl = document.getElementById('outputText');
+  const translateBtn = document.getElementById('translateBtn');
+  const swapBtn = document.getElementById('swapBtn');
+
+  function populateSelect(sel, defaultCode){
+    LANGS.slice().sort((a,b) => a.name.localeCompare(b.name)).forEach(l => {
+      const opt = document.createElement('option');
+      opt.value = l.code;
+      opt.textContent = (l.code === 'en') ? l.name : `${l.native} — ${l.name}`;
+      if (l.code === defaultCode) opt.selected = true;
+      sel.appendChild(opt);
+    });
+  }
+  populateSelect(fromSel, 'en');
+  populateSelect(toSel, 'hi');
+
+  function langByCode(code){ return LANGS.find(l => l.code === code); }
+
+  function updateDirAttrs(){
+    const fromLang = langByCode(fromSel.value);
+    const toLang = langByCode(toSel.value);
+    inputEl.dir = (fromLang && fromLang.dir === 'rtl') ? 'rtl' : 'ltr';
+    inputEl.lang = fromSel.value;
+    outputEl.dir = (toLang && toLang.dir === 'rtl') ? 'rtl' : 'ltr';
+    outputEl.lang = toSel.value;
+  }
+  fromSel.addEventListener('change', updateDirAttrs);
+  toSel.addEventListener('change', updateDirAttrs);
+  updateDirAttrs();
+
+  function setOutput(text, isPlaceholder){
+    outputEl.textContent = text;
+    outputEl.classList.toggle('placeholder', !!isPlaceholder);
+  }
+
+  async function doTranslate(){
+    const text = inputEl.value.trim();
+    if (!text){
+      setOutput('Type something on the left, then press Translate.', true);
+      return;
+    }
+    const fromLang = langByCode(fromSel.value);
+    const toLang = langByCode(toSel.value);
+    const fromName = fromLang ? fromLang.name : fromSel.value;
+    const toName = toLang ? toLang.name : toSel.value;
+
+    translateBtn.disabled = true;
+    translateBtn.textContent = 'Translating…';
+    setOutput('Translating…', true);
+
+    try {
+      const res = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-6",
+          max_tokens: 1000,
+          messages: [
+            {
+              role: "user",
+              content: `Translate the following text from ${fromName} to ${toName}. Reply with only the translated text — no quotation marks, no notes, no explanation.\n\nText: ${text}`
+            }
+          ]
+        })
+      });
+      const data = await res.json();
+      const translated = (data.content || [])
+        .map(block => block.type === 'text' ? block.text : '')
+        .join('')
+        .trim();
+
+      if (translated){
+        setOutput(translated, false);
+      } else {
+        setOutput("Couldn't translate that just now — try again in a moment.", true);
+      }
+    } catch (err) {
+      setOutput('Translation service is unavailable right now. Please try again shortly.', true);
+    } finally {
+      translateBtn.disabled = false;
+      translateBtn.textContent = 'Translate';
+    }
+  }
+  translateBtn.addEventListener('click', doTranslate);
+
+  swapBtn.addEventListener('click', () => {
+    const fromVal = fromSel.value;
+    const toVal = toSel.value;
+    fromSel.value = toVal;
+    toSel.value = fromVal;
+
+    const inputVal = inputEl.value;
+    const outputVal = outputEl.classList.contains('placeholder') ? '' : outputEl.textContent;
+    inputEl.value = outputVal;
+    setOutput(inputVal || 'Your translation will appear here.', !inputVal);
+
+    updateDirAttrs();
+  });
+
+  document.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      inputEl.value = chip.dataset.phrase;
+      inputEl.focus();
+    });
+  });
+
+  // ---------- HERO WORD ROTATION ----------
+  const heroWord = document.getElementById('heroWord');
+  const rotation = LANGS.map(l => ({
+    text: l.greeting,
+    font: FONT_CLASS[l.font],
+    color: GROUP_META[l.group].color,
+    dir: l.dir || 'ltr',
+    lang: l.code
+  }));
+  // start with English "Hello" already shown; build full cycle including it
+  rotation.unshift({ text:'Hello', font:'f-latin', color:'var(--violet)', dir:'ltr', lang:'en' });
+
+  let rotIndex = 0;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReducedMotion){
+    setInterval(() => {
+      heroWord.style.opacity = 0;
+      heroWord.style.transform = 'translateY(10px)';
+      setTimeout(() => {
+        rotIndex = (rotIndex + 1) % rotation.length;
+        const item = rotation[rotIndex];
+        heroWord.textContent = item.text;
+        heroWord.className = 'hero-word ' + item.font;
+        heroWord.style.color = item.color;
+        heroWord.dir = item.dir;
+        heroWord.lang = item.lang;
+        heroWord.style.opacity = 1;
+        heroWord.style.transform = 'translateY(0)';
+      }, 350);
+    }, 2400);
+  }
+
+  // ---------- SCROLL REVEAL ----------
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window){
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting){
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('visible'));
+  }
+</script>
+</body>
+</html>
